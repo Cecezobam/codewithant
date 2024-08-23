@@ -1,34 +1,62 @@
-import { Card, Image, Button } from "antd";
+import { Card, Image, Button,Input} from "antd";
 // import { Span } from "next/dist/trace";
 import {useState} from "react";
 
 export default function ProductCard({ product, handleClick }) {
 
   const [hasClick, setHasClick] = useState(false);
-  let content;
+
+
+  let content
   
+  
+   let[counter,setCounter]=useState(0)
+  
+   
   function handleBuyToggle(){
     setHasClick(true)
     handleClick();
-  }
-
-  if (hasClick) {
+}
+function increaseNum(){
+  counter++
+  setCounter(counter);
+ 
+}
+function decreaseNum(){
+  counter--
+  setCounter(counter);
+}
+  
+if (hasClick) {
     content = <span>true</span>;
   } else {
     content = (
       <Button type="primary" onClick={handleBuyToggle}>
         Buy Me
-      </Button>
+       
+    </Button>
+      
     );
   }
 
   return (
     <Card title={product.title} className="w-1/4 m-4">
       <Image src={product.image} alt={product.image} height={200} />
-      <div className="flex justify-between">
+      <div className="">
         <p>NGN{product.price}</p>
         {content}
-      </div>
+        </div>
+
+        <div className=" flex ">
+
+       
+       <p>Quantity </p>
+       
+        <Button onClick={increaseNum} >+</Button>
+        {counter}
+
+        <Button onClick={decreaseNum}>-</Button>
+        </div> 
     </Card>
   );
 }
